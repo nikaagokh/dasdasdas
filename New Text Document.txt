@@ -1,0 +1,195 @@
+public class GeometricMeanCalculator {
+    public static double calculateGeometricMean(int[] numbers) {
+        int oddCount = 0;
+        double product = 1.0;
+
+        for (int number : numbers) {
+            if (number % 2 != 0) { // Check if number is odd
+                product *= number;
+                oddCount++;
+            }
+        }
+
+        if (oddCount == 0) {
+            return 0.0; // No odd numbers found, return 0
+        }
+
+        return Math.pow(product, 1.0 / oddCount);
+    }
+
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        double geometricMean = calculateGeometricMean(numbers);
+        System.out.println("Geometric Mean: " + geometricMean);
+    }
+}
+
+2) public class ArithmeticMeanCalculator {
+    public static double calculateArithmeticMean(int[] numbers) {
+        if (numbers.length == 0) {
+            return 0.0; // Empty array, return 0
+        }
+
+        double sum = 0.0;
+        int count = 0;
+
+        for (int number : numbers) {
+            if (number >= 150) { // Check if number is 150 or greater
+                sum += number;
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return 0.0; // No elements greater than or equal to 150, return 0
+        }
+
+        return sum / count;
+    }
+
+    public static void main(String[] args) {
+        int[] numbers = {100, 200, 150, 250, 300};
+        double arithmeticMean = calculateArithmeticMean(numbers);
+        System.out.println("Arithmetic Mean: " + arithmeticMean);
+    }
+}
+
+3) public class Department {
+    private String name;
+    private int id;
+
+    public Department(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return id == that.id && name.equals(that.name);
+    }
+
+    public static void main(String[] args) {
+        Department department1 = new Department("Sales", 1);
+        Department department2 = new Department("Marketing", 2);
+        Department department3 = new Department("Sales", 1);
+
+        System.out.println(department1.equals(department2)); // false
+        System.out.println(department1.equals(department3)); // true
+
+        System.out.println(department1.toString()); // Department{name='Sales', id=1}
+        System.out.println(department2.toString()); // Department{name='Marketing', id=2}
+    }
+}
+4) public class Book {
+    private String title;
+    private String author;
+    private int year;
+
+    public Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", year=" + year +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Book otherBook = (Book) obj;
+        return year == otherBook.year &&
+                title.equals(otherBook.title) &&
+                author.equals(otherBook.author);
+    }
+
+    public static void main(String[] args) {
+        Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925);
+        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", 1960);
+        Book book3 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925);
+
+        System.out.println(book1);
+        System.out.println(book2);
+        System.out.println(book3);
+
+        System.out.println("book1 equals book2: " + book1.equals(book2));
+        System.out.println("book1 equals book3: " + book1.equals(book3));
+    }
+}
+5) import java.util.Objects;
+
+public class Invoice {
+    private String invoiceNumber;
+    private String customerName;
+    private double amount;
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceNumber='" + invoiceNumber + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return Double.compare(invoice.amount, amount) == 0 &&
+                Objects.equals(invoiceNumber, invoice.invoiceNumber) &&
+                Objects.equals(customerName, invoice.customerName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(invoiceNumber, customerName, amount);
+    }
+}
